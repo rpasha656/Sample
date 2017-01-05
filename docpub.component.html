@@ -1,0 +1,39 @@
+<h3>
+    <div class="form-inline">
+        <div class="form-group">
+            <label class="control-label">PID: </label>
+            <select class="form-control" [(ngModel)]="selectedPlanName">
+            <option>Select</option>            
+            <option>HUM</option>
+            <option>Test</option>
+        </select>
+        </div>
+        <button type="button" class="btn btn-success" [disabled]="(selectedPlanName == undefined || selectedPlanName == 'Select')"
+            (click)="getFileMetadatalisting(selectedPlanName)">Go</button>
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal" [disabled]="(selectedPlanName == undefined || selectedPlanName == 'Select')">Upload a new document</button>        
+    </div>
+</h3>
+<p [hidden]="(selectedPlanName != 'Select')" class="alert alert-warning">Please select plan to get started</p>
+<as-filelisting></as-filelisting>
+<div class="container">
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog  modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" (click)="fileUploadSuccess=0" data-dismiss="modal">&times;</button>
+                    <form formgroup="complexForm">
+                        <div class="form-horizontal">
+                            <div class="col-sm-12">
+                                <fieldset>
+                                    <legend>Document Details</legend>
+                                    <br>
+                                    <as-upload></as-upload>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

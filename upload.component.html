@@ -1,0 +1,64 @@
+<style>
+    .alert {
+        padding: 5px;
+        margin-bottom: 5px;
+    }
+    
+    .spacing {
+        margin-left: 20px;
+    }
+    #displayName:hover,#cancel:hover {
+    box-shadow: 0 2px 6px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+</style>
+<form (ngSubmit)="onSubmit(form)" novalidate #form="ngForm">
+    <div class="form-group">
+        <label class="col-sm-3 control-label">Display Name</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" #displayNameField="ngModel" (keyup)="checkLength($event)" [(ngModel)]="fileMetadata.displayName"
+                name="displayName" required id="displayName">
+            <p *ngIf="showErrorMsg" class="alert alert-danger">Exceeds 40 Characters</p>
+            <p *ngIf="displayNameField.touched && displayNameField.invalid" class="alert alert-danger">Please enter a Display Name</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">Select File</label>
+        <div class="col-sm-9">
+            <input type="file" class="form-control" #fileField="ngModel" [(ngModel)]="fileMetadata.file" name="file" required accept=".xlsx,.xls,.doc,.docx.,.txt,.pdf">
+            <p *ngIf="fileField.touched && fileField.invalid" class="alert alert-danger">Please select a file</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">Category</label>
+        <div class="col-sm-9">
+            <select class="form-control" id="category" #catField="ngModel" (change)="changeSubCate($event)" [(ngModel)]="fileMetadata.categoryId"
+                name="category" required>
+                  <option value="">Select</option>
+                  <option *ngFor="let data of category" [value]="data.id" >{{data.name}}</option>
+         </select>
+            <p *ngIf="catField.touched && catField.invalid" class="alert alert-danger">Please select a Category</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">SubCategory</label>
+        <div class="col-sm-9">
+            <select class="form-control" id="subcategory" #subCatField="ngModel" [(ngModel)]="fileMetadata.subCategoryId" name="subcategory"
+                required>
+                  <option value="">Select</option>
+                  <option *ngFor="let data of subJsonData" [value]="data.id">{{data.name}}</option>
+         </select>
+            <p *ngIf="subCatField.touched && subCatField.invalid" class="alert alert-danger">Please select a SubCategory</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">Expiration Date</label>
+        <div class="col-sm-9">
+            <input type="date" id="date" class="form-control" required #dateField="ngModel" [(ngModel)]="date" name="date" required>
+            <p *ngIf="dateField.touched && dateField.invalid" class="alert alert-danger">Please select a Date</p>
+        </div>
+    </div>
+    <div class="text-center">
+        <button type="cancel" class="btn btn-info" id="cancel"   type="reset" value="Cancel">Cancel</button>
+        <button type="submit" class="btn btn-primary"  [disabled]="form.invalid">Upload</button>
+    </div>
+</form>

@@ -1,0 +1,12 @@
+env.json
+.idea/
+!/node_modules/
+/node_modules/*
+!/node_modules/microui-contracts/
+/bower_components
+/dist
+/report
+/typings
+/src/tmp
+.DS_Store
+/src/assets/styles/*.css

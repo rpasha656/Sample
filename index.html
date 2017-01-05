@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <title>Angular 2 Starter</title>
+    <base href="/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!-- build:css assets/bundle.css -->
+    <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.css">
+   
+    <!-- app:css -->
+    <link rel="stylesheet" href="/assets/styles/main.css">
+    <!-- endinject -->
+    <!-- endbuild -->
+  </head>
+  <body>
+    <as-main-app>
+      <i class="center-fix main-spinner fa fa-spin fa-spinner"></i>
+    </as-main-app>
+
+    <!-- build:js assets/lib.js -->
+
+    <!-- Non-module JS libs -->
+    <script src="vendor/jquery/dist/jquery.js"></script>
+    <script src="vendor/bootstrap-sass/assets/javascripts/bootstrap.js"></script>
+
+    <!-- Polyfill(s) for older browsers -->
+    <script src="vendor/core-js/client/shim.min.js"></script>
+
+    <!-- Load libraries -->
+    <script src="vendor/zone.js/dist/zone.js"></script>
+
+    <!-- endbuild -->
+
+    <!-- build:js assets/app.js -->
+    <script src="app/bundle.js"></script>
+    <!-- endbuild -->
+
+    <script src="vendor/systemjs/dist/system.src.js"></script>
+    <script src="system-config.js"></script>
+    <script>
+      System.import('main')
+        .catch(function(err) { console.error(err); });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,101 @@
+<style>
+    .accordion-toggle .glyphicon:after {
+        content: "\2212";
+    }
+    
+    .accordion-toggle.collapsed .glyphicon:after {
+        content: "\002b";
+    }
+    
+    .alert {
+        padding: 5px;
+        margin-bottom: 5px;
+    }
+    
+    .spacing {
+        margin-left: 20px;
+    }
+</style>
+<div class="form-horizontal">
+    <div class="container">
+        <div class="panel">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="hiddenRow panel-body">
+                        <div class="col-sm-12 alert alert-danger" *ngIf="showNoRowsMessage"> No documents found for selected plan</div>
+                        <div *ngIf="showfilelisting">
+                            <div *ngFor="let filemetadatacategory of filemetadatalisting; let i = index;">
+                                <div data-toggle="collapse" [attr.data-target]="generateId(filemetadatacategory.id,'category',true)" class="accordion-toggle collapsed">
+                                    <div class="col-sm-12 alert alert-success"><button class="btn btn-default btn-xs"><li class="glyphicon"></li></button> {{filemetadatacategory.name}}</div>
+                                </div>
+                                <div class="hiddenRow">
+                                    <div class="accordian-body collapse" [id]="generateId(filemetadatacategory.id,'category',false)">
+                                        <div *ngFor="let filemetadatasubcategory of filemetadatacategory.subCategories; let j = index;">
+                                            <div class="form-group row" data-toggle="collapse" [attr.data-target]="generateId(filemetadatasubcategory.id,'subcategory',true)"
+                                                class="accordion-toggle collapsed info">
+                                                <div class="col-sm-12 alert alert-info">
+                                                    <span class="spacing"> <button class="btn btn-default btn-xs"><li class="glyphicon"></li></button>  {{filemetadatasubcategory.name}}</span></div>
+                                            </div>
+                                            <div class="hiddenRow">
+                                                <div class="accordian-body collapse" [id]="generateId(filemetadatasubcategory.id,'subcategory',false)">
+                                                    <div class="col-xs-12">
+                                                        <table class="table table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Document</th>
+                                                                    <th>Filename</th>
+                                                                    <th>Status</th>
+                                                                    <th>Status Date</th>
+                                                                    <th>Expiration Date</th>
+                                                                    <th>Actions</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr *ngFor="let fileMetadatamodel of filemetadatasubcategory.fileMetadata; let k = index;">
+                                                                    <td><a href="#">{{fileMetadatamodel.fileName}}</a></td>
+                                                                    <td>{{fileMetadatamodel.displayName}}</td>
+                                                                    <td>{{fileMetadatamodel.statusName}}</td>
+                                                                    <td>{{fileMetadatamodel.statusDate}}</td>
+                                                                    <td>{{fileMetadatamodel.expirationDate}}</td>
+                                                                    <td>
+                                                                        <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" data-toggle="tooltip" data-placement="top"
+                                                                            title="Edit file"><span class="fa fa-pencil-square-o"></span></button>
+                                                                        <button class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="View audit history"><span class="fa fa-calendar"></span></button>
+                                                                        <button class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="View mail history"><span class="fa fa-envelope"></span></button>
+                                                                        <button class="btn btn-danger btn-sm" data-toggle="modal" data-placement="top" title="Delete the file" data-target="#confirm-delete"><span class="fa fa-trash-o"></span></button>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
+                </div>
+                <div class="modal-body">
+                    <p>You are about to delete the file, this procedure is irreversible.</p>
+                    <p>Do you want to proceed?</p>
+                    <p class="debug-url"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-danger btn-ok">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
